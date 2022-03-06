@@ -11,9 +11,6 @@ function setup() {
 
 createButton("Start").mousePressed(startSketch);
 
-  mic = new p5.AudioIn();
-  mic.start();
-
   eyeColor = random(255);
 
   for (let i = 0; i < 20; i++) {
