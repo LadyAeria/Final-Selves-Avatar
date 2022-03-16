@@ -1,5 +1,5 @@
 let eyeColor = 0;
-let sketchStarted = false;
+
 let myStars = [];
 
 var xPos = 0;
@@ -8,11 +8,11 @@ var xPos = 0;
 function setup() {
   createCanvas(500, 500);
   textAlign(CENTER);
-
-createButton("Start").mousePressed(startSketch);
-
+  mic = new p5.AudioIn();
+  mic.start();
+  
   eyeColor = random(255);
-
+  
   for (let i = 0; i < 20; i++) {
     let x = random(width*0.075,width*0.925);
     let y = random(height*0.075,height*0.925);
@@ -20,33 +20,24 @@ createButton("Start").mousePressed(startSketch);
   }
 }
 
-function startSketch(){
-  mic = new p5.AudioIn();
-  mic.start();
-
-  sketchStarted = true;
-}
 function draw() {
-  if(sketchStarted){
-    background(164, 210, 255);
-    for (let i = 0;  i < 20; i++) {
-      myStars[i].display();
-      myStars[i].move();
-    }
-
-    body();
-    ears();
-    whiskers();
-    body();
-    mouth();
-    nose();
-    eyes();
-    blush();
-
-    //click to change the eye color to a random color
-    if (mouseIsPressed) eyecolor = color(random(255), random(255), random(255));
+  background(164, 210, 255);
+  for (let i = 0;  i < 20; i++) {
+    myStars[i].display();
+    myStars[i].move();
   }
+  
+  body();
+  ears();
+  whiskers();
+  body();
+  mouth();
+  nose();
+  eyes();
+  blush();
 
+  //click to change the eye color to a random color
+  if (mouseIsPressed) eyecolor = color(random(255), random(255), random(255));
 }
 
 function body() {
@@ -83,7 +74,7 @@ function whiskers() {
   micLevel = mic.getLevel();
   let y = height - micLevel * height;
   let h = map(micLevel, 0, 1, height, 2);
-
+  
   stroke("#000000");
   line(80, h-200, 210, 260);
   stroke("#000000");
